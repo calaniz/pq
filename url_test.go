@@ -28,6 +28,18 @@ func TestFullParseURL(t *testing.T) {
 	}
 }
 
+func TestNoPasswordParseURL(t *testing.T) {
+	expected := `dbname=database host=hostname.remote port=1234 user=username`	
+	str, err := ParseURL("postgres://username@hostname.remote:1234/database")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if str != expected {
+		t.Fatalf("unexpected result from ParseURL:\n+ %s\n- %s", str, expected)
+	}		
+}
+
 func TestInvalidProtocolParseURL(t *testing.T) {
 	_, err := ParseURL("http://hostname.remote")
 	switch err {

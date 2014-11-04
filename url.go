@@ -50,8 +50,9 @@ func ParseURL(url string) (string, error) {
 		v := u.User.Username()
 		accrue("user", v)
 
-		v, _ = u.User.Password()
-		accrue("password", v)
+		if p, ok := u.User.Password(); ok {
+			accrue("password", p)
+		}
 	}
 
 	i := strings.Index(u.Host, ":")
