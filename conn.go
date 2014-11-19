@@ -210,8 +210,8 @@ func DialOpen(d Dialer, name string) (_ driver.Conn, err error) {
 	cn.buf = bufio.NewReader(cn.c)
 	cn.startup(o)
 	// reset the deadline, in case one was set (see dial)
-	err = cn.c.SetDeadline(time.Time{})
-	return cn, err
+	cn.c.SetDeadline(time.Time{})
+	return cn, nil
 }
 
 func dial(d Dialer, o values) (net.Conn, error) {
